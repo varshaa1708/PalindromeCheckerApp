@@ -1,44 +1,53 @@
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC9.
+     * Application entry point for UC11.
      *
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
 
         // Input string
-        String input = "madam";
+        String input = "racecar";
 
-        // Call recursive method
-        boolean result = check(input, 0, input.length() - 1);
+        // Create service object
+        PalindromeService service = new PalindromeService();
+
+        // Call service method
+        boolean result = service.checkPalindrome(input);
 
         // Display result
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);
     }
+}
+
+/**
+ * Service class that contains palindrome logic.
+ */
+class PalindromeService {
 
     /**
-     * Recursively checks whether a string is palindrome.
+     * Checks whether the input string is a palindrome.
      *
-     * @param s Input string
-     * @param start Starting index
-     * @param end Ending index
-     * @return true if palindrome, otherwise false
+     * @param input Input string
+     * @return true if palindrome, false otherwise
      */
-    private static boolean check(String s, int start, int end) {
+    public boolean checkPalindrome(String input) {
 
-        // Base condition: if pointers cross or meet
-        if (start >= end) {
-            return true;
+        // Initialize pointers
+        int start = 0;
+        int end = input.length() - 1;
+
+        // Compare characters moving inward
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
         }
 
-        // If characters do not match
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call moving inward
-        return check(s, start + 1, end - 1);
+        return true;
     }
 }
